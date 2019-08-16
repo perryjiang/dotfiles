@@ -1,0 +1,45 @@
+[apply]
+  whitespace = fix
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[core]
+  autocrlf = input
+  editor = vim
+  excludesfile = ~/.gitignore_global
+  filemode = false
+
+  # Speed up commands that involve determining untracked files
+  # https://git-scm.com/docs/git-update-index#_untracked_cache
+  untrackedcache = true
+
+[credential]
+  helper = osxkeychain
+
+[diff]
+  context = 8
+  mnemonicprefix = true
+  renames = copies
+
+[merge]
+  log = true
+  tool = vimdiff
+
+[user]
+  name = Perry Jiang
+  email = me@perryjiang.com

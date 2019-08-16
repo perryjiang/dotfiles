@@ -1,0 +1,11 @@
+name: mozilla
+root: ~/src/mozilla-unified/
+
+windows:
+  - editor: vim -c vsplit
+  - terminal:
+  - htop: htop
+  - dotfiles:
+      root: ~/src/dotfiles/
+      panes:
+        - vim -c vsplit
