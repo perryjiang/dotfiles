@@ -14,7 +14,13 @@ alias ls="ls --color --group-directories-first"
 alias mux="tmuxinator"
 alias rg="rg --smart-case --context 8"
 
-export PATH="$HOME/.cargo/bin:$HOME/.vim/pack/minpac/start/fzf/bin:$PATH"
+typeset -U path
+path=(
+  $HOME/.cargo/bin
+  $HOME/.vim/pack/minpac/start/fzf/bin
+  /usr/local/opt/coreutils/libexec/gnubin
+  $path[@]
+)
 
 export DOTFILES="$HOME/src/dotfiles"
 
