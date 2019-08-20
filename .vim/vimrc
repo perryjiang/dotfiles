@@ -25,6 +25,7 @@ function! PackInit() abort
   call minpac#add('mbbill/undotree')
   call minpac#add('mhinz/vim-signify')
   call minpac#add('mhinz/vim-startify')
+  call minpac#add('mtth/scratch.vim')
   call minpac#add('nelstrom/vim-visual-star-search')
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   call minpac#add('sheerun/vim-polyglot')
@@ -100,7 +101,7 @@ set splitright
 
 """ Editing
 set backspace=indent,eol,start
-set clipboard^=unnamedplus
+set clipboard^=unnamed
 set mouse=a
 set scrolloff=5
 set ttymouse=xterm2
