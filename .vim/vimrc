@@ -102,7 +102,7 @@ set splitright
 
 """ Editing
 set backspace=indent,eol,start
-set clipboard^=unnamed
+set clipboard^=unnamed,unnamedplus
 set mouse=a
 set scrolloff=5
 set ttymouse=xterm2
