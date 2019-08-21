@@ -154,6 +154,11 @@ set encoding=utf-8
 set undodir=$HOME/.vim/undo
 set undofile
 
+augroup disallow_persistent_undo
+  autocmd!
+  autocmd BufWritePre /tmp/* setlocal noundofile
+augroup END
+
 """ User Interface
 set colorcolumn=80
 set cursorline
