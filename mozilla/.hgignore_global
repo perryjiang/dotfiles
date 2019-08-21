@@ -5,3 +5,5 @@ syntax: glob
 .DS_Store
 .netrwhist
 tags
+Session.vim
+Sessionx.vim
