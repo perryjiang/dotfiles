@@ -35,6 +35,7 @@ firefoxtree = $HOME/.mozbuild/version-control-tools/hgext/firefoxtree
 format-source = $HOME/.mozbuild/version-control-tools/hgext/format-source
 fsmonitor =
 histedit =
+js-format = $HOME/.mozbuild/version-control-tools/hgext/js-format
 purge =
 push-to-try = $HOME/.mozbuild/version-control-tools/hgext/push-to-try
 rebase =
