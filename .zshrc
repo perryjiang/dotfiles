@@ -15,12 +15,21 @@ alias mux="tmuxinator"
 alias rg="rg --smart-case --context 8"
 
 typeset -U path
+
 path=(
   $HOME/.cargo/bin
   $HOME/.vim/pack/minpac/start/fzf/bin
-  /usr/local/opt/coreutils/libexec/gnubin
   $path[@]
 )
+
+if [[ "$(uname)" == "Darwin" ]]; then
+  path=(
+    /usr/local/opt/coreutils/libexec/gnubin
+    /usr/local/opt/ruby/bin
+    /usr/local/lib/ruby/gems/*/bin
+    $path[@]
+  )
+fi
 
 export DOTFILES="$HOME/src/dotfiles"
 
