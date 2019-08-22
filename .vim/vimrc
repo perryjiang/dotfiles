@@ -23,6 +23,7 @@ function! PackInit() abort
   call minpac#add('liuchengxu/vista.vim')
   call minpac#add('ludovicchabant/vim-gutentags')
   call minpac#add('mbbill/undotree')
+  call minpac#add('mhinz/vim-grepper')
   call minpac#add('mhinz/vim-signify')
   call minpac#add('mhinz/vim-startify')
   call minpac#add('mtth/scratch.vim')
@@ -45,6 +46,7 @@ command! PackStatus call PackInit() | call minpac#status()
 command! PackUpdate call PackInit() |
   \ call minpac#update('', {'do': 'call minpac#status()'})
 
+"""" coc.nvim
 let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-eslint',
@@ -68,13 +70,26 @@ let g:coc_user_config = {
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-let g:lightline = {'colorscheme': 'nord'}
-let g:nord_cursor_line_number_background = 1
-let g:signify_vcs_list = ['git', 'hg']
-let g:startify_change_to_vcs_root = 1
+"""" vim-grepper
+" Choose rg by default
+let g:grepper = {}
+let g:grepper.tools = ['rg', 'git', 'grep']
 
+nnoremap <silent> <Leader>* :Grepper -cword -noprompt<CR>
+nnoremap <silent> <Leader>g :Grepper<CR>
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+""""  vista.vim
 let g:vista_sidebar_width = 50
 noremap <silent> <Leader>v :<C-u>Vista!!<CR>
+
+"""" Other
+let g:lightline = {'colorscheme': 'nord'}
+let g:nord_cursor_line_number_background = 1
+let g:scratch_no_mappings = 1
+let g:signify_vcs_list = ['git', 'hg']
+let g:startify_change_to_vcs_root = 1
 
 nnoremap <silent> <C-p> :<C-u>FZF<CR>
 nnoremap <silent> <Leader>u :<C-u>UndotreeToggle<CR>
