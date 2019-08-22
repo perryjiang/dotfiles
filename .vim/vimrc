@@ -161,6 +161,15 @@ set smartcase
 
 nnoremap <silent> <Leader><Space> :<C-u>nohlsearch<CR><C-l>
 
+""" Terminal Mode
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
+
+tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
+
 """ Text
 syntax enable
 
