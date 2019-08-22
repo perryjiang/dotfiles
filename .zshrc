@@ -25,6 +25,7 @@ path=(
 if [[ "$(uname)" == "Darwin" ]]; then
   path=(
     /usr/local/opt/coreutils/libexec/gnubin
+    /usr/local/opt/llvm/bin
     /usr/local/opt/ruby/bin
     /usr/local/lib/ruby/gems/*/bin
     $path[@]
