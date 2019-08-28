@@ -1,0 +1,4 @@
+ac_add_options CCACHE="$HOME/.mozbuild/sccache/sccache"
+ac_add_options --disable-cargo-incremental
+
+mk_add_options MOZ_MAKE_FLAGS="-j100"
