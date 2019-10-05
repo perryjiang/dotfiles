@@ -42,6 +42,8 @@ cask 'spotify'
 cask 'sublime-text'
 cask 'textual'
 cask 'the-unarchiver'
+cask 'vagrant'
+cask 'virtualbox'
 cask 'vlc'
 cask 'xquartz'
 
