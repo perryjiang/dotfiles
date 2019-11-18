@@ -44,6 +44,7 @@ cask 'textual'
 cask 'the-unarchiver'
 cask 'vagrant'
 cask 'virtualbox'
+cask 'visual-studio-code'
 cask 'vlc'
 cask 'xquartz'
 
