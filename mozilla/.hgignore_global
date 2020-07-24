@@ -1,9 +1,0 @@
-syntax: glob
-
-*~
-.clangd/
-.DS_Store
-.netrwhist
-tags
-Session.vim
-Sessionx.vim

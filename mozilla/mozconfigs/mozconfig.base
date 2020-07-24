@@ -1,7 +1,0 @@
-export CC=$HOME/.mozbuild/clang/bin/clang
-export CXX=$HOME/.mozbuild/clang/bin/clang++
-
-export CFLAGS="$CFLAGS -fcolor-diagnostics"
-export CXXFLAGS="$CXXFLAGS -fcolor-diagnostics"
-
-mk_add_options AUTOCLOBBER=1

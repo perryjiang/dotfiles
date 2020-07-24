@@ -1,7 +1,0 @@
-. $MOZCONFIGS_DIR/mozconfig.linux
-
-export CFLAGS="$CFLAGS --target=x86_64-apple-darwin"
-export CXXFLAGS="$CXXFLAGS --target=x86_64-apple-darwin"
-
-export HOST_CFLAGS="$CFLAGS"
-export HOST_CXXFLAGS="$CXXFLAGS"

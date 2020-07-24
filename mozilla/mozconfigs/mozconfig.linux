@@ -1,3 +1,0 @@
-. $MOZCONFIGS_DIR/mozconfig.base
-. $MOZCONFIGS_DIR/mozconfig.sccache
-. $MOZCONFIGS_DIR/mozconfig.debug
