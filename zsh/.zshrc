@@ -1,50 +1,58 @@
 # ==============================================================================
-# Sections:
-#       => General
-#       => Autocompletion
-#       => History
-#       => Plugins
-#       => Prompt
+# Environment
 # ==============================================================================
+export DOTFILES="${HOME}/src/dotfiles"
 
-# ==============================================================================
-# General
-# ==============================================================================
-alias ls="ls --color --group-directories-first"
-alias mux="tmuxinator"
-alias rg="rg --smart-case --context 8"
+export VISUAL='vim'
+export EDITOR="${VISUAL}"
+
+export LESS='FRX'
+export PAGER='less'
+
+export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_OPTS='--height 40%'
+
+if [ -z "$TMUX"  ];then
+  export TERM='xterm-256color'
+fi
 
 typeset -U path
 
 path=(
-  $HOME/.cargo/bin
   $HOME/.vim/pack/minpac/start/fzf/bin
   $path[@]
 )
 
-if [[ "$(uname)" == "Darwin" ]]; then
+if [[ "$(uname)" == 'Darwin' ]]; then
   path=(
     /usr/local/opt/coreutils/libexec/gnubin
     /usr/local/opt/llvm/bin
-    /usr/local/opt/ruby/bin
-    /usr/local/lib/ruby/gems/*/bin
     $path[@]
   )
 fi
 
-export DOTFILES="$HOME/src/dotfiles"
+# ==============================================================================
+# Aliases
+# ==============================================================================
+alias h='history'
+alias j='jobs'
+alias rg='rg --smart-case --context 8'
 
-export LESS="FRX"
-export PAGER="less"
+alias la='ls -A'
+alias ll='ls -Al'
+alias ls='ls --color --group-directories-first'
 
-export VISUAL="vim"
-export EDITOR="$VISUAL"
+alias cp='nocorrect cp'
+alias mkdir='nocorrect mkdir'
+alias mv='nocorrect mv'
 
-export FZF_DEFAULT_COMMAND="rg --files"
-export FZF_DEFAULT_OPTS="--height 40%"
+alias d='dirs -v'
+alias po='popd'
+alias pu='pushd'
 
-[ -z "$TMUX"  ] && export TERM=xterm-256color
-
+# ==============================================================================
+# Key Bindings
+# ==============================================================================
 # Use emacs keybindings even if $EDITOR is set to vi
 bindkey -e
 
@@ -54,11 +62,25 @@ zle -N edit-command-line
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
 
+# Call run-help for the command on the current input line: ESC-h
+unalias run-help
+autoload run-help
+
+# ==============================================================================
+# History
+# ==============================================================================
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
+HISTFILE=$HOME/.zsh_history
+
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY
+
 # ==============================================================================
 # Autocompletion
 # ==============================================================================
-# Initialize autocompletion
-autoload -U compinit; compinit
+autoload -Uz compinit && compinit
 
 setopt CORRECT_ALL
 setopt AUTO_CD
@@ -70,25 +92,10 @@ zstyle 'completion:*' group-name ''
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 
 # ==============================================================================
-# History
-# ==============================================================================
-# Keep 10000 lines of history within the shell, saved to $HOME/.zsh_history
-HISTSIZE=10000
-SAVEHIST=$HISTSIZE
-HISTFILE=$HOME/.zsh_history
-
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_REDUCE_BLANKS
-setopt INC_APPEND_HISTORY
-
-# ==============================================================================
 # Plugins
 # ==============================================================================
 # Initialize the zsh plugin manager
 source <(antibody init)
-
-autoload -U promptinit; promptinit
-antibody bundle denysdovhan/spaceship-prompt
 
 antibody bundle robbyrussell/oh-my-zsh path:plugins/z/z.plugin.zsh
 antibody bundle zsh-users/zsh-autosuggestions
@@ -97,13 +104,15 @@ antibody bundle zsh-users/zsh-completions
 # ==============================================================================
 # Prompt
 # ==============================================================================
+autoload -Uz promptinit && promptinit
+antibody bundle denysdovhan/spaceship-prompt
+
 SPACESHIP_PROMPT_ORDER=(
   time          # Time stamps section
   user          # Username section
   host          # Hostname section
   dir           # Current directory section
   git           # Git section (git_branch + git_status)
-  hg            # Mercurial section (hg_branch  + hg_status)
   exec_time     # Execution time
   line_sep      # Line break
   vi_mode       # Vi-mode indicator

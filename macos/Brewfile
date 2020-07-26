@@ -1,0 +1,41 @@
+tap 'getantibody/tap'
+tap 'homebrew/cask'
+tap 'homebrew/cask-fonts'
+tap 'universal-ctags/universal-ctags'
+
+brew 'antibody'
+brew 'cmake'
+brew 'coreutils'
+brew 'git'
+brew 'htop'
+brew 'llvm'
+brew 'mas'
+brew 'moreutils'
+brew 'node'
+brew 'python'
+brew 'reattach-to-user-namespace'
+brew 'ripgrep'
+brew 'stow'
+brew 'tmux'
+brew 'tree'
+brew 'universal-ctags', args: ['HEAD']
+brew 'vim'
+brew 'wget'
+brew 'youtube-dl'
+brew 'zsh'
+
+mas 'Amphetamine', id: 937984704
+mas 'Magnet', id: 441258766
+mas 'Xcode', id: 497799835
+
+cask 'alacritty'
+cask 'appcleaner'
+cask 'bitwarden'
+cask 'firefox'
+cask 'font-hack-nerd-font'
+cask 'google-backup-and-sync'
+cask 'iina'
+cask 'logitech-options'
+cask 'postbox'
+cask 'spotify'
+cask 'xquartz'
