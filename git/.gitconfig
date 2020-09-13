@@ -1,10 +1,22 @@
 [alias]
+	a = add
+	amend = commit --amend --no-edit
 	br = branch
+	brd = branch --delete
 	ci = commit
+	cl = clone
 	co = checkout
+	cob = checkout -b
 	d = diff
-	l = log --graph --oneline --all --simplify-by-decoration --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+	dc = diff --cached
+	ds = diff --stat
+	fu = commit --fixup
+	rb = rebase
+	rbi = rebase --interactive
+	sq = commit --squash
 	st = status
+	sync = !sh -c 'git checkout --quiet --detach && git fetch origin master:master && git checkout --quiet -'
+	wow = log --graph --oneline --all --simplify-by-decoration --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
 [apply]
 	whitespace = fix
 [color "branch"]
@@ -24,21 +36,32 @@
 [core]
 	autocrlf = input
 	excludesFile = ~/.gitignore_global
+	pager = delta
 	untrackedCache = true
 [credential]
 	helper = osxkeychain
+[delta]
+	features = side-by-side
+	syntax-theme = Nord
 [diff]
 	algorithm = histogram
-	context = 8
+	colorMoved = default
 	mnemonicPrefix = true
 	renames = copies
 [fetch]
 	prune = true
+[interactive]
+	diffFilter = delta --color-only
 [merge]
 	conflictStyle = diff3
 	tool = vimdiff
 [pull]
 	ff = only
+[rebase]
+	autoSquash = true
+[rerere]
+	autoUpdate = true
+	enabled = true
 [user]
 	email = me@perryjiang.com
 	name = Perry Jiang

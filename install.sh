@@ -2,11 +2,19 @@
 
 set -euo pipefail
 
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+fi
+
 brew_bundle() {
-  brew bundle "$1" --file=macos/Brewfile
+  if [[ "$(uname)" == 'Darwin' ]]; then
+    cat homebrew/Brewfile* | brew bundle "$1" --file=-
+  else
+    brew bundle "$1" --file=homebrew/Brewfile
+  fi
 }
 
-if [[ "$(uname)" == 'Darwin' ]] && ! brew_bundle check; then
+if ! brew_bundle check; then
   brew_bundle install
 fi
 
@@ -17,6 +25,5 @@ stow --target="${HOME}" */
 readonly ZSH_PATH="$(command -v zsh)"
 
 if [[ "${SHELL}" != "${ZSH_PATH}" ]]; then
-  chsh -s "${ZSH_PATH}"
-  exec zsh
+  echo "Change the default shell to ${ZSH_PATH}"
 fi

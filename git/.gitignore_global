@@ -1,4 +1,6 @@
 *~
 .DS_Store
 .netrwhist
+compile_commands.json
 tags
+/.clangd/
