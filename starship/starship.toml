@@ -1,0 +1,8 @@
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+[git_status]
+disabled = true

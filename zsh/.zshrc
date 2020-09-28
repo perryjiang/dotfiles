@@ -49,7 +49,7 @@ alias mkdir='nocorrect mkdir'
 alias mv='nocorrect mv'
 alias vim='nvim'
 
-for dir in 'bat' 'exa' 'fzf' 'ht' 'neovim' 'ripgrep'; do
+for dir in 'bat' 'dircolors' 'exa' 'fzf' 'ht' 'neovim' 'ripgrep' 'starship'; do
   source "${DOTFILES}/${dir}/configure.zsh"
 done
 
