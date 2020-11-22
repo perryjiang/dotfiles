@@ -1,6 +1,6 @@
 """ Header
-let mapleader = ','
-noremap \ ,
+noremap <Space> <Nop>
+let mapleader = "\<Space>"
 
 augroup vimrc
   autocmd!
@@ -16,23 +16,19 @@ function! PackInit() abort
   call minpac#add('axelf4/vim-strip-trailing-whitespace')
   call minpac#add('christoomey/vim-tmux-navigator')
   call minpac#add('itchyny/lightline.vim')
-  call minpac#add('jiangmiao/auto-pairs')
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('junegunn/vim-peekaboo')
-  call minpac#add('junegunn/vim-slash')
   call minpac#add('k-takata/minpac', {'type': 'opt'})
-  call minpac#add('kana/vim-operator-user')
   call minpac#add('kana/vim-textobj-entire')
   call minpac#add('kana/vim-textobj-user')
   call minpac#add('liuchengxu/vista.vim')
   call minpac#add('mbbill/undotree')
   call minpac#add('mhinz/vim-signify')
+  call minpac#add('morhetz/gruvbox')
   call minpac#add('neovim/nvim-lspconfig')
   call minpac#add('nvim-lua/completion-nvim')
-  call minpac#add('nvim-lua/diagnostic-nvim')
-  call minpac#add('nvim-lua/lsp-status.nvim')
-  call minpac#add('rhysd/vim-clang-format')
-  call minpac#add('sheerun/vim-polyglot')
+  call minpac#add('nvim-treesitter/nvim-treesitter')
+  call minpac#add('romainl/vim-cool')
   call minpac#add('tpope/vim-commentary')
   call minpac#add('tpope/vim-dispatch')
   call minpac#add('tpope/vim-fugitive')
@@ -41,26 +37,17 @@ function! PackInit() abort
   call minpac#add('tpope/vim-surround')
   call minpac#add('tpope/vim-unimpaired')
   call minpac#add('tpope/vim-vinegar')
-  call minpac#add('voldikss/vim-floaterm')
 endfunction
 
 command! PackUpdate source $MYVIMRC | call PackInit() | call minpac#update()
 command! PackClean  source $MYVIMRC | call PackInit() | call minpac#clean()
 command! PackStatus source $MYVIMRC | call PackInit() | call minpac#status()
 
-"""" clangd
-autocmd vimrc FileType c,cpp nnoremap <buffer> <Leader>ae <Cmd>ClangdSwitchSourceHeader<CR>
-autocmd vimrc FileType c,cpp nnoremap <buffer> <Leader>as <Cmd>split +ClangdSwitchSourceHeader<CR>
-autocmd vimrc FileType c,cpp nnoremap <buffer> <Leader>av <Cmd>vsplit +ClangdSwitchSourceHeader<CR>
-
 """" undotree
 nnoremap <Leader>u <Cmd>UndotreeToggle<CR>
 
 """" vista
 nnoremap <Leader>v <Cmd>Vista!!<CR>
-
-"""" floaterm
-let g:floaterm_keymap_toggle = '<Leader>t'
 
 """" fzf
 let &runtimepath .= ',' . trim(system('brew --prefix fzf'))
@@ -71,14 +58,13 @@ nnoremap <Leader>rg :<C-u>Rg<Space>
 
 """" lightline
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [['mode'],
-      \            ['git_branch', 'readonly', 'filename', 'modified', 'lsp_status']],
+      \            ['git_branch', 'readonly', 'filename', 'modified']],
       \ },
       \ 'component_function': {
       \   'git_branch': 'FugitiveHead',
-      \   'lsp_status': 'LspStatus',
       \ },
       \ }
 
@@ -90,86 +76,23 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
 """ Diagnostics
-nnoremap [g <Cmd>PrevDiagnostic<CR>
-nnoremap ]g <Cmd>NextDiagnostic<CR>
-
 set updatetime=300
 
-autocmd vimrc CursorHold * lua vim.lsp.util.show_line_diagnostics()
-autocmd vimrc ColorScheme nord highlight LspDiagnosticsUnderline cterm=underline gui=underline
+autocmd vimrc CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
-""" Formatting
-nnoremap <Leader>x <Cmd>lua vim.lsp.buf.formatting()<CR>
-xnoremap <Leader>x <Cmd>lua vim.lsp.buf.formatting()<CR>
+" TODO: gruvbox clears these otherwise
+autocmd vimrc ColorScheme gruvbox highlight LspDiagnosticsUnderlineError cterm=underline gui=underline guisp=Red
+autocmd vimrc ColorScheme gruvbox highlight LspDiagnosticsUnderlineWarning cterm=underline gui=underline guisp=Orange
+autocmd vimrc ColorScheme gruvbox highlight LspDiagnosticsUnderlineInformation cterm=underline gui=underline guisp=LightBlue
+autocmd vimrc ColorScheme gruvbox highlight LspDiagnosticsUnderlineHint cterm=underline gui=underline guisp=LightGrey
+autocmd vimrc ColorScheme gruvbox highlight LspDiagnosticsDefaultError guisp=Red
+autocmd vimrc ColorScheme gruvbox highlight LspDiagnosticsDefaultWarning guisp=Orange
+autocmd vimrc ColorScheme gruvbox highlight LspDiagnosticsDefaultInformation guisp=LightBlue
+autocmd vimrc ColorScheme gruvbox highlight LspDiagnosticsDefaultHint guisp=LightGrey
 
-autocmd vimrc FileType javascript,proto nmap <buffer> <Leader>x <Plug>(operator-clang-format)ae
-autocmd vimrc FileType javascript,proto xmap <buffer> <Leader>x <Plug>(operator-clang-format)ae
-
-""" LSP
-nnoremap <Leader>d <Cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <C-]>     <Cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap gr        <Cmd>lua vim.lsp.buf.references()<CR>
-nnoremap K         <Cmd>lua vim.lsp.buf.hover()<CR>
-
-function! LspStatus() abort
-  return luaeval('#vim.lsp.buf_get_clients() > 0') ? luaeval("require('lsp-status').status()") : ''
-endfunction
-
-lua << EOF
-vim.cmd('packadd completion-nvim')
-vim.cmd('packadd diagnostic-nvim')
-vim.cmd('packadd lsp-status.nvim')
-vim.cmd('packadd nvim-lspconfig')
-
-local completion = require('completion')
-local diagnostic = require('diagnostic')
-local lsp_status = require('lsp-status')
-local nvim_lsp   = require('nvim_lsp')
-
-lsp_status.register_progress()
-lsp_status.config({
-  status_symbol = '',
-  indicator_errors = '×',
-  indicator_warnings = '!',
-  indicator_info = 'i',
-  indicator_hint = '›',
-  indicator_ok = '',
-})
-
-local on_attach = function(client, bufnr)
-  completion.on_attach(client, bufnr)
-  diagnostic.on_attach(client, bufnr)
-  lsp_status.on_attach(client, bufnr)
-end
-
-nvim_lsp.clangd.setup {
-  cmd = {
-    'clangd',
-    '--background-index=false',
-  },
-  callbacks = lsp_status.extensions.clangd.setup(),
-    init_options = {
-    clangdFileStatus = true,
-  },
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities,
-}
-
-nvim_lsp.cmake.setup {
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities,
-}
-
-nvim_lsp.jsonls.setup {
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities,
-}
-
-nvim_lsp.vimls.setup {
-  on_attach = on_attach,
-  capabilities = lsp_status.capabilities,
-}
-EOF
+""" Lua
+lua require("lsp").setup()
+lua require("treesitter").setup()
 
 """ Editing
 nnoremap <Leader>ev <Cmd>vsplit $MYVIMRC<CR>
@@ -186,9 +109,10 @@ set linebreak
 set noshowmode
 set termguicolors
 
-if !exists('g:colors_name') || g:colors_name != 'nord'
-  let g:nord_underline = 1
-  colorscheme nord
+if !exists('g:colors_name') || g:colors_name != 'gruvbox'
+  let g:gruvbox_italic = 1
+  let g:gruvbox_sign_column = 'dark0'
+  colorscheme gruvbox
 endif
 
 autocmd vimrc InsertLeave,WinEnter,VimEnter * set cursorline
@@ -212,8 +136,6 @@ tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
 
 """ Folding
-nnoremap <Space> za
-
 set foldlevelstart=99
 
 function! VimFold(lnum) abort
@@ -236,10 +158,7 @@ function! SetFoldMethod() abort
   endif
 endfunction
 
-augroup fold_settings
-  autocmd!
-  autocmd Filetype * call SetFoldMethod()
-augroup END
+autocmd vimrc Filetype * call SetFoldMethod()
 
 """ Indentation
 set expandtab
@@ -251,8 +170,7 @@ set hidden
 set splitbelow
 set splitright
 
-""" Backup, Swap, Undo
-set backup
+""" Swap, Undo, Shada
 set undofile
 
 function! EnsureTmpDir(dirname) abort
@@ -263,7 +181,6 @@ function! EnsureTmpDir(dirname) abort
   return l:path
 endfunction
 
-let &backupdir = EnsureTmpDir('backup')
 let &directory = EnsureTmpDir('swap')
 let &undodir   = EnsureTmpDir('undo')
 let &shadafile = EnsureTmpDir('shada') . 'shada'

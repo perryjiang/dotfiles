@@ -18,12 +18,11 @@ if ! brew_bundle check; then
   brew_bundle install
 fi
 
+"$(brew --prefix)/opt/fzf/install" --xdg --key-bindings --completion --no-bash --no-update-rc
+
 git submodule update --init --recursive
 
-stow --target="${HOME}" */
+stow --verbose=2 --target="${HOME}/.config" --dir='..' dotfiles
+stow --verbose=2 --target="${HOME}/.config" starship
 
-readonly ZSH_PATH="$(command -v zsh)"
-
-if [[ "${SHELL}" != "${ZSH_PATH}" ]]; then
-  echo "Change the default shell to ${ZSH_PATH}"
-fi
+echo "Done! Make sure the default shell is zsh."

@@ -1,0 +1,18 @@
+alias cat='bat'
+
+alias ls='exa --group-directories-first'
+alias ll='exa --group-directories-first --all --long'
+
+alias cp='nocorrect cp'
+alias mv='nocorrect mv'
+alias mkdir='nocorrect mkdir'
+
+alias d='dirs -v'
+for index in {1..9}; do
+  alias "${index}"="cd +${index}"
+done
+
+alias vim='nvim'
+alias vimdiff='nvim -d'
+
+alias ht='ssh ht'

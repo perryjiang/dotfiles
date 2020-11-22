@@ -1,0 +1,11 @@
+.git
+gdb
+homebrew
+ripgrep
+starship
+zsh
+.gitmodules
+.ignore
+install.sh
+LICENSE
+README.md

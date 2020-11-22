@@ -1,30 +1,4 @@
-# General
-# Use emacs keybindings even if $EDITOR is set to vi
-bindkey -e
-
-# Edit the current command with $VISUAL: CTRL-x CTRL-e
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^xe' edit-command-line
-bindkey '^x^e' edit-command-line
-
-# Call run-help for the command on the current input line: ESC-h
-alias run-help &> /dev/null && unalias run-help
-autoload -U run-help
-
-setopt auto_cd
-setopt correct_all
-
-# History
-HISTSIZE=10000
-SAVEHIST="${HISTSIZE}"
-HISTFILE="${HOME}/.zsh_history"
-setopt hist_ignore_all_dups
-setopt hist_reduce_blanks
-setopt inc_append_history
-setopt share_history
-
-# Environment
+# Path
 typeset -U path
 
 if [[ "$(uname)" == 'Darwin' ]]; then
@@ -33,39 +7,106 @@ else
   eval "$("${HOME}/.linuxbrew/bin/brew" shellenv)"
 fi
 
-[[ -z "${TMUX}" ]] && export TERM='xterm-256color'
-export CTEST_OUTPUT_ON_FAILURE=1
-export DOTFILES="${HOME}/src/dotfiles"
-export EDITOR='nvim'
-export LESS='FRX'
-export PAGER='less'
-export VISUAL="${EDITOR}"
+try_source() {
+  [[ -f "$1" ]] && source "$1"
+}
 
-alias cat='bat'
-alias cp='nocorrect cp'
-alias ll='exa --group-directories-first --all --long'
-alias ls='exa --group-directories-first'
-alias mkdir='nocorrect mkdir'
-alias mv='nocorrect mv'
-alias vim='nvim'
+# Aliases
+source "${ZDOTDIR}/aliases"
 
-for dir in 'bat' 'dircolors' 'exa' 'fzf' 'ht' 'neovim' 'ripgrep' 'starship'; do
-  source "${DOTFILES}/${dir}/configure.zsh"
-done
+# NOTE: start_tmux_if_ssh.zsh requires $PATH to be initialized to find the right tmux
+try_source "${HOME}/pjiang/scripts/start_tmux_if_ssh.zsh"
+try_source "${HOME}/pjiang/scripts/env.zsh"
 
-eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
+# General options
+setopt AUTO_CD
+setopt CORRECT_ALL
+
+# History
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt SHARE_HISTORY
+
+# Directory stack
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
 
 # Plugins
 source <(antibody init)
-
 antibody bundle zsh-users/zsh-autosuggestions
+antibody bundle zsh-users/zsh-completions
+
+# Completion
+setopt GLOB_DOTS
+
+autoload -Uz compinit && compinit
 
 zmodload zsh/complist
 zstyle ':completion:*' menu select
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' completer _expand _complete _correct _approximate
-antibody bundle zsh-users/zsh-completions
-autoload -Uz compinit && compinit
 
+# Vi mode
+bindkey -v
+
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^u' kill-whole-line
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
+
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
+
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+setup_cursor() {
+  block_cursor() { echo -ne '\e[1 q' }
+  beam_cursor() { echo -ne '\e[6 q' }
+
+  zle-keymap-select() {
+    if [[ "${KEYMAP}" == 'vicmd' ]]; then
+      block_cursor
+    else
+      beam_cursor
+    fi
+  }
+
+  zle -N zle-keymap-select
+  precmd_functions+=(beam_cursor)
+}
+
+setup_cursor
+
+# Tools
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+
+# Should come after vi mode config - fzf.zsh overrides CTRL-R/T
+source "${HOME}/.config/fzf/fzf.zsh"
+
+# Should be last
 antibody bundle zsh-users/zsh-syntax-highlighting
+antibody bundle zsh-users/zsh-history-substring-search
+
+bindkey '^p' history-substring-search-up
+bindkey '^n' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down

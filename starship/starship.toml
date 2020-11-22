@@ -1,8 +1,17 @@
-[username]
+[character]
+vicmd_symbol = "[V](bold green)"
+
+[cmake]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[git_status]
 disabled = true
 
 [hostname]
 disabled = true
 
-[git_status]
+[username]
 disabled = true

@@ -4,6 +4,7 @@
 	amend = commit --amend --no-edit
 	br = branch
 	brd = branch --delete
+	caa = commit --all --amend --no-edit
 	ci = commit
 	cl = clone
 	co = checkout
@@ -12,14 +13,17 @@
 	dc = diff --cached
 	ds = diff --stat
 	fu = commit --fixup
+	fuh = commit --fixup HEAD
 	rb = rebase
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbi = rebase --interactive
+	rmb = !git branch --merged master | grep -v '^\\* master' | xargs -n 1 --no-run-if-empty git branch -d
 	sh = show
 	shs = show --stat
 	sq = commit --squash
 	st = status
+        # TODO: https://stackoverflow.com/questions/46695859/should-i-use-sh-c-or-f-f-in-git-alias-scripts
 	sync = !sh -c 'git checkout --quiet --detach && git fetch origin master:master && git checkout --quiet -'
 	wow = log --graph --oneline --all --simplify-by-decoration --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
 [apply]
@@ -40,7 +44,7 @@
 	untracked = cyan
 [core]
 	autocrlf = input
-	excludesFile = ~/.gitignore_global
+	excludesFile = ~/dotfiles/git/.gitignore_global
 	pager = delta
 	untrackedCache = true
 [credential]

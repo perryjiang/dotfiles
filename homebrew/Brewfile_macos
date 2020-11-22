@@ -3,7 +3,6 @@ tap 'homebrew/cask-drivers'
 tap 'homebrew/cask-fonts'
 
 brew 'mas'
-brew 'reattach-to-user-namespace'
 
 mas 'Amphetamine', id: 937984704
 mas 'Magnet', id: 441258766
@@ -18,6 +17,7 @@ cask 'google-backup-and-sync'
 cask 'iina'
 cask 'logitech-camera-settings'
 cask 'logitech-options'
-cask 'postbox'
+cask 'microsoft-outlook'
+cask 'microsoft-teams'
 cask 'spotify'
 cask 'xquartz'
