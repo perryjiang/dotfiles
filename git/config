@@ -44,7 +44,7 @@
 	untracked = cyan
 [core]
 	autocrlf = input
-	excludesFile = ~/dotfiles/git/.gitignore_global
+	excludesFile = ~/dotfiles/git/gitignore_global
 	pager = delta
 	untrackedCache = true
 [credential]
