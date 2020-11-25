@@ -1,7 +1,8 @@
 alias cat='bat'
 
-alias ls='exa --group-directories-first'
-alias ll='exa --group-directories-first --all --long'
+alias l='ls --color=auto --group-directories-first -v'
+alias la='l -A'
+alias ll='la -Ghl'
 
 alias cp='nocorrect cp'
 alias mv='nocorrect mv'
