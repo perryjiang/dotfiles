@@ -15,5 +15,6 @@ done
 
 alias vim='nvim'
 alias vimdiff='nvim -d'
+alias view='nvim -R'
 
 alias ht='ssh ht'
