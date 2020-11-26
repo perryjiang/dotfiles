@@ -1,6 +1,8 @@
 # Path
 typeset -U path
 
+path=("$(brew --prefix coreutils)/libexec/gnubin" "${path[@]}")
+
 if [[ "$(uname)" == 'Darwin' ]]; then
   path=("$(brew --prefix llvm)/bin" "${path[@]}")
 else
