@@ -23,7 +23,8 @@
 	shs = show --stat
 	sq = commit --squash
 	st = status
-        # TODO: https://stackoverflow.com/questions/46695859/should-i-use-sh-c-or-f-f-in-git-alias-scripts
+	# TODO: https://stackoverflow.com/questions/46695859/should-i-use-sh-c-or-f-f-in-git-alias-scripts
+	# https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts
 	sync = !sh -c 'git checkout --quiet --detach && git fetch origin master:master && git checkout --quiet -'
 	wow = log --graph --oneline --all --simplify-by-decoration --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
 [apply]
@@ -68,6 +69,7 @@
 	ff = only
 [rebase]
 	autoSquash = true
+	autoStash = true
 [rerere]
 	autoUpdate = true
 	enabled = true
