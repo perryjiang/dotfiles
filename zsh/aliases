@@ -1,3 +1,4 @@
+alias c='clear'
 alias cat='bat'
 
 alias l='ls --color=auto --group-directories-first -v'
@@ -7,11 +8,6 @@ alias ll='la -Ghl'
 alias cp='nocorrect cp'
 alias mv='nocorrect mv'
 alias mkdir='nocorrect mkdir'
-
-alias d='dirs -v'
-for index in {1..9}; do
-  alias "${index}"="cd +${index}"
-done
 
 alias vim='nvim'
 alias vimdiff='nvim -d'

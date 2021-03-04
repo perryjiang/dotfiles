@@ -1,10 +1,8 @@
 # Path
 typeset -U path
 
-path=("$(brew --prefix coreutils)/libexec/gnubin" "${path[@]}")
-
 if [[ "$(uname)" == 'Darwin' ]]; then
-  path=("$(brew --prefix llvm)/bin" "${path[@]}")
+  path=("/home/pjiang/.linuxbrew/opt/coreutils/libexec/gnubin" "$(brew --prefix llvm)/bin" "${path[@]}")
 else
   eval "$("${HOME}/.linuxbrew/bin/brew" shellenv)"
 fi

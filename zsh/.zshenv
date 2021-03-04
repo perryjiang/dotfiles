@@ -4,6 +4,7 @@ export ZDOTDIR="${DOTFILES}/zsh"
 export VISUAL='nvim'
 export EDITOR="${VISUAL}"
 
+export MANROFFOPT="-c"
 export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
 export PAGER='less'
 export LESS='FRX'
@@ -16,7 +17,6 @@ export HISTFILE="${ZDOTDIR}/.zsh_history"
 
 export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL="$([[ "$(uname)" == 'Darwin' ]] && sysctl -n hw.physicalcpu || nproc)"
-export CTEST_PROGRESS_OUTPUT=1
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"

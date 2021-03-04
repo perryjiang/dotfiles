@@ -18,11 +18,12 @@
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbi = rebase --interactive
-	rmb = !git branch --merged master | grep -v '^\\* master' | xargs -n 1 --no-run-if-empty git branch -d
+	rmb = !git branch --merged master | rg -v '^(\\*| ) master$' | xargs -n 1 --no-run-if-empty git branch -d
 	sh = show
 	shs = show --stat
 	sq = commit --squash
 	st = status
+	sw = switch
 	# TODO: https://stackoverflow.com/questions/46695859/should-i-use-sh-c-or-f-f-in-git-alias-scripts
 	# https://stackoverflow.com/questions/3216360/merge-update-and-pull-git-branches-without-using-checkouts
 	sync = !sh -c 'git checkout --quiet --detach && git fetch origin master:master && git checkout --quiet -'
