@@ -52,8 +52,8 @@
 [credential]
 	helper = osxkeychain
 [delta]
-	features = side-by-side
-	syntax-theme = Nord
+	side-by-side = true
+	syntax-theme = gruvbox
 [diff]
 	algorithm = histogram
 	colorMoved = default

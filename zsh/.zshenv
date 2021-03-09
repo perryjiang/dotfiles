@@ -4,6 +4,7 @@ export ZDOTDIR="${DOTFILES}/zsh"
 export VISUAL='nvim'
 export EDITOR="${VISUAL}"
 
+export COLORTERM='truecolor'
 export MANROFFOPT="-c"
 export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
 export PAGER='less'
