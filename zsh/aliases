@@ -1,5 +1,4 @@
 alias c='clear'
-alias cat='bat'
 
 alias l='ls --color=auto --group-directories-first -v'
 alias la='l -A'
