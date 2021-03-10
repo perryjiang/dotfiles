@@ -6,7 +6,6 @@
 	brd = branch --delete
 	caa = commit --all --amend --no-edit
 	ci = commit
-	cl = clone
 	co = checkout
 	cob = checkout -b
 	d = diff
