@@ -1,6 +1,3 @@
-[character]
-vicmd_symbol = "[V](bold green)"
-
 [cmake]
 disabled = true
 
