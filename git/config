@@ -6,8 +6,6 @@
 	brd = branch --delete
 	caa = commit --all --amend --no-edit
 	ci = commit
-	co = checkout
-	cob = checkout -b
 	d = diff
 	dc = diff --cached
 	ds = diff --stat
