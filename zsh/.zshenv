@@ -16,9 +16,6 @@ export HISTFILE="${ZDOTDIR}/.zsh_history"
 
 [[ -z "${TMUX}" ]] && export TERM='xterm-256color'
 
-export CTEST_OUTPUT_ON_FAILURE=1
-export CTEST_PARALLEL_LEVEL="$([[ "$(uname)" == 'Darwin' ]] && sysctl -n hw.physicalcpu || nproc)"
-
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 
