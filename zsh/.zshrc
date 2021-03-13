@@ -58,23 +58,8 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-setup_cursor() {
-  block_cursor() { echo -ne '\e[1 q' }
-  beam_cursor() { echo -ne '\e[6 q' }
-
-  zle-keymap-select() {
-    if [[ "${KEYMAP}" == 'vicmd' ]]; then
-      block_cursor
-    else
-      beam_cursor
-    fi
-  }
-
-  zle -N zle-keymap-select
-  precmd_functions+=(beam_cursor)
-}
-
-setup_cursor
+beam_cursor() { echo -ne '\e[6 q' }
+precmd_functions+=(beam_cursor)
 
 # Tools
 eval "$(zoxide init zsh)"
