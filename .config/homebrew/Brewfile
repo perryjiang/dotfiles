@@ -1,0 +1,30 @@
+tap "homebrew/cask-fonts"
+
+brew "antidote"
+brew "cmake"
+brew "difftastic"
+brew "fd"
+brew "fzf"
+brew "git"
+brew "htop"
+brew "jq"
+brew "less"
+brew "llvm"
+brew "mas" if OS.mac?
+brew "neovim"
+brew "ninja"
+brew "ripgrep"
+brew "tmux"
+brew "zsh"
+
+cask "alt-tab"
+cask "firefox"
+cask "font-hack-nerd-font"
+cask "keymapp"
+cask "logi-options-plus"
+cask "logitech-camera-settings"
+cask "monitorcontrol"
+cask "spotify"
+cask "wezterm"
+
+mas "Magnet", id: 441258766
