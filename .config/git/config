@@ -1,0 +1,21 @@
+[diff]
+	algorithm = histogram
+	external = difft
+[fetch]
+	prune = true
+[merge]
+	conflictStyle = zdiff3
+[push]
+	autoSetupRemote = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[rerere]
+	autoUpdate = true
+	enabled = true
+[user]
+	email = me@perryjiang.com
+	name = Perry Jiang
+[include]
+	path = ~/.config/git/local
