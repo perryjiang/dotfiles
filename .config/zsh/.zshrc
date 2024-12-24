@@ -5,6 +5,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -v commands[brew] ]] && export HOMEBREW_BUNDLE_FILE=~/.config/homebrew/Brewfile
+
+export COLORTERM=truecolor
+export LESS=FRX
+export PAGER=less
+export VISUAL=nvim
+
+typeset -U PATH path
+[[ -d ~/bin ]] && path=(~/bin $path)
+
 alias config="git --git-dir ${HOME}/dotfiles --work-tree ${HOME}"
 
 source "${ZDOTDIR}/antidote/antidote.zsh"

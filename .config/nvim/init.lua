@@ -26,10 +26,53 @@ now(function()
   vim.notify = MiniNotify.make_notify()
 end)
 now(function()
-  require("mini.starter").setup()
+  require("mini.statusline").setup()
 end)
 now(function()
-  require("mini.statusline").setup()
+  add("stevearc/oil.nvim")
+  require("oil").setup()
+  vim.keymap.set("n", "-", "<Cmd>Oil<CR>")
+end)
+now(function()
+  add({
+    source = "neovim/nvim-lspconfig",
+    depends = {
+      "p00f/clangd_extensions.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "williamboman/mason.nvim",
+    },
+  })
+  require("mason").setup()
+  require("mason-lspconfig").setup({
+    automatic_installation = true,
+  })
+  local lspconfig = require("lspconfig")
+  lspconfig.clangd.setup({
+    on_attach = function()
+      require("clangd_extensions.inlay_hints").set_inlay_hints()
+      require("clangd_extensions.inlay_hints").setup_autocmd()
+      vim.keymap.set("n", "<Leader>l", "<Cmd>ClangdSwitchSourceHeader<CR>")
+    end,
+  })
+  lspconfig.jsonls.setup({})
+  lspconfig.lua_ls.setup({
+    on_init = function(client)
+      client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+        runtime = {
+          version = "LuaJIT",
+        },
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME,
+          },
+        },
+      })
+    end,
+    settings = {
+      Lua = {},
+    },
+  })
 end)
 
 later(function()
@@ -63,22 +106,15 @@ end)
 later(function()
   add("ibhagwan/fzf-lua")
   local fzf = require("fzf-lua")
-  fzf.setup()
+  fzf.setup({
+    fzf_colors = true,
+  })
   vim.keymap.set("n", "<Leader>fb", fzf.buffers)
   vim.keymap.set("n", "<Leader>ff", fzf.files)
-  vim.keymap.set("n", "<Leader>fg", fzf.live_grep_glob)
   vim.keymap.set("n", "<Leader>fh", fzf.help_tags)
-end)
-
-later(function()
-  add("stevearc/oil.nvim")
-  require("oil").setup()
-  vim.keymap.set("n", "-", "<Cmd>Oil<CR>")
-end)
-
-later(function()
-  add("williamboman/mason.nvim")
-  require("mason").setup()
+  vim.keymap.set("n", "<Leader>sg", fzf.live_grep_glob)
+  vim.keymap.set("n", "<Leader>sw", fzf.grep_cword)
+  vim.keymap.set("v", "<Leader>sw", fzf.grep_visual)
 end)
 
 later(function()
@@ -98,6 +134,9 @@ later(function()
       c = {
         "clang-format",
       },
+      cmake = {
+        "cmake_format",
+      },
       cpp = {
         "clang-format",
       },
@@ -110,22 +149,6 @@ later(function()
     },
   })
   require("mason-conform").setup()
-end)
-
-later(function()
-  add({
-    source = "neovim/nvim-lspconfig",
-    depends = {
-      "williamboman/mason-lspconfig.nvim",
-    },
-  })
-  require("mason-lspconfig").setup({
-    automatic_installation = true,
-  })
-  local lspconfig = require("lspconfig")
-  lspconfig.clangd.setup({})
-  lspconfig.jsonls.setup({})
-  lspconfig.lua_ls.setup({})
 end)
 
 later(function()
