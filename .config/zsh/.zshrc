@@ -14,7 +14,7 @@ export PAGER=less
 export VISUAL=nvim
 
 typeset -U PATH path
-[[ -d ~/bin ]] && path=(~/bin $path)
+[[ -d ~/.local/bin ]] && path=(~/.local/bin $path)
 
 alias config="git --git-dir ${HOME}/dotfiles --work-tree ${HOME}"
 

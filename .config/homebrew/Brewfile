@@ -15,6 +15,7 @@ brew "pre-commit"
 brew "python"
 brew "ripgrep"
 brew "tmux"
+brew "wget"
 brew "zsh"
 
 cask "alt-tab"

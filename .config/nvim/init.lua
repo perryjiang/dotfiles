@@ -49,8 +49,6 @@ now(function()
   local lspconfig = require("lspconfig")
   lspconfig.clangd.setup({
     on_attach = function()
-      require("clangd_extensions.inlay_hints").set_inlay_hints()
-      require("clangd_extensions.inlay_hints").setup_autocmd()
       vim.keymap.set("n", "<Leader>l", "<Cmd>ClangdSwitchSourceHeader<CR>")
     end,
   })
